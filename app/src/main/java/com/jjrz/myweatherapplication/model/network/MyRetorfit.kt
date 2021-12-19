@@ -1,6 +1,10 @@
 package com.jjrz.myweatherapplication.model.network
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.MutableLiveData
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.jjrz.myweatherapplication.BuildConfig
 import com.jjrz.myweatherapplication.model.Forecast
 import com.jjrz.myweatherapplication.utility.DebugHelper.Companion.LogKitty
 import retrofit2.Call
@@ -10,8 +14,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import kotlin.coroutines.coroutineContext
 
 object MyRetorfit {
+
+    private val ACTION_CUSTOM_BROADCAST =
+        BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST"
+    
     var myForecast = MutableLiveData<Forecast?>().apply {
         value = null
     }
@@ -20,7 +29,7 @@ object MyRetorfit {
 
     }
 
-    fun getWeather(myCity : String) {
+    fun getWeather(myCity: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -33,10 +42,11 @@ object MyRetorfit {
                 if (response.code() == 200) {
                     LogKitty("Assigning value to myForecast")
                     myForecast.postValue(response.body())
-                    }
                 }
+            }
+
             override fun onFailure(call: Call<Forecast>, t: Throwable) {
-                myForecast.value = null
+                myForecast.postValue(null)
                 LogKitty(t.toString())
             }
         })
@@ -45,7 +55,7 @@ object MyRetorfit {
 
     interface MyWeatherService {
         @GET("forecast") //"forecast?q={city}&appid={api key}"
-        fun getCityWeather(@Query("q") myCity : String, @Query("appid") appID : String): Call<Forecast>
+        fun getCityWeather(@Query("q") myCity: String, @Query("appid") appID: String): Call<Forecast>
     }
 
     fun notEmpty() : Boolean {
