@@ -43,7 +43,7 @@ class ForecastsAdapter : RecyclerView.Adapter<ForecastsAdapter.ForecastsViewHold
             textWeather.text =
                 MyRetorfit.myForecast.value?.list?.get(position)?.weather?.get(0)?.main
             textTemperature.text =
-                MyRetorfit.myForecast.value?.list?.get(position)?.main?.temp.toString()
+                String.format("%.2fC" , MyRetorfit.myForecast.value?.list?.get(position)?.main?.temp?.minus(273.15))
             buttonText.setOnClickListener {
                 val intent = Intent(buttonText.context, ForecastDetailActivity::class.java)
                 val bundle = Bundle()
