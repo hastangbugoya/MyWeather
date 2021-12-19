@@ -39,22 +39,20 @@ class ForecastsAdapter : RecyclerView.Adapter<ForecastsAdapter.ForecastsViewHold
     }
 
     override fun onBindViewHolder(holder: ForecastsViewHolder, position: Int) {
-        myForecast.let {
-            with(holder.binding) {
-                textWeather.text =
-                    MyRetorfit.myForecast.value?.list?.get(position)?.weather?.get(0)?.main
-                textTemperature.text =
-                    MyRetorfit.myForecast.value?.list?.get(position)?.main?.temp.toString()
-                buttonText.setOnClickListener {
-                    val intent = Intent(buttonText.context, ForecastDetailActivity::class.java)
-                    val bundle = Bundle()
-                    bundle.putSerializable(
-                        "value",
-                        MyRetorfit.myForecast.value?.list?.get(position)
-                    )
-                    intent.putExtras(bundle)
-                    startActivity(buttonText.context, intent, null)
-                }
+        with(holder.binding) {
+            textWeather.text =
+                MyRetorfit.myForecast.value?.list?.get(position)?.weather?.get(0)?.main
+            textTemperature.text =
+                MyRetorfit.myForecast.value?.list?.get(position)?.main?.temp.toString()
+            buttonText.setOnClickListener {
+                val intent = Intent(buttonText.context, ForecastDetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(
+                    "value",
+                    MyRetorfit.myForecast.value?.list?.get(position)
+                )
+                intent.putExtras(bundle)
+                startActivity(buttonText.context, intent, null)
             }
         }
     }
