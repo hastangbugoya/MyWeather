@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         val view = binding.root
         setContentView(view)
+
         MyRetorfit.myForecast.observe(this, {f ->
             LogKitty("Change detected")
             if (MyRetorfit.myForecast.value != null) {

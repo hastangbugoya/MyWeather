@@ -14,14 +14,14 @@ class ForecastDetailActivity : AppCompatActivity() {
         setContentView(view)
         val intent = this.intent
         val bundle = intent.extras
-        val l = bundle?.getSerializable("value") as Forecasts?
-        binding.textTest.text = l.toString()
-        supportActionBar?.title = bundle?.getCharSequence("city_name")
-        binding.textTemp.text = String.format("%.2fC", l?.main?.temp?.minus(273.15))
-        binding.textMain.text = l?.weather?.get(0)?.main
+        val forecast = bundle?.getSerializable("value") as Forecasts?
+        binding.textTest.text = forecast.toString()
+        supportActionBar?.title = bundle?.getCharSequence("city_name") ?: "Error"
+        binding.textTemp.text = String.format("%.2fC", forecast?.main?.temp?.minus(273.15))
+        binding.textMain.text = forecast?.weather?.get(0)?.main
         binding.textFeels.text =
-            String.format("Feels like : %.2fC", l?.main?.feelsLike?.minus(273.15))
-        binding.textDesc.text = l?.weather?.get(0)?.description
+            String.format("Feels like : %.2fC", forecast?.main?.feelsLike?.minus(273.15))
+        binding.textDesc.text = forecast?.weather?.get(0)?.description
 
     }
 }

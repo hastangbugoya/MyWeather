@@ -62,6 +62,6 @@ class ForecastsAdapter : RecyclerView.Adapter<ForecastsAdapter.ForecastsViewHold
     }
 
     override fun getItemCount(): Int {
-        return MyRetorfit.myForecast.value?.list?.size.let { it } ?: 0
+        return MyRetorfit.myForecast.value?.list?.size ?: 0
     }
 }
