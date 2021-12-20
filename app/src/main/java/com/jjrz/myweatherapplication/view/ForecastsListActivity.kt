@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.jjrz.myweatherapplication.databinding.ActivityForecastsListBinding
 import com.jjrz.myweatherapplication.model.Forecast
-import com.jjrz.myweatherapplication.utility.DebugHelper.Companion.LogKitty
 
 
 class ForecastsListActivity : AppCompatActivity() {
