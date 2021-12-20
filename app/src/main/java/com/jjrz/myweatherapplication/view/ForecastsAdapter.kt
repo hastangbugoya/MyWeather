@@ -51,6 +51,7 @@ class ForecastsAdapter : RecyclerView.Adapter<ForecastsAdapter.ForecastsViewHold
                     "value",
                     MyRetorfit.myForecast.value?.list?.get(position)
                 )
+                bundle.putCharSequence("city_name",MyRetorfit.myForecast.value?.city?.name)
                 intent.putExtras(bundle)
                 startActivity(buttonText.context, intent, null)
             }

@@ -19,7 +19,7 @@ class ForecastsListActivity : AppCompatActivity() {
         val intent = this.intent
         val bundle = intent.extras
         val l = bundle?.getSerializable("value") as Forecast
-        binding.textCityName.text = l?.city?.name.let { it } ?: "Error"
+        supportActionBar?.title = l?.city?.name.let { it } ?: "Error"
         adapter.updateForecast(l)
     }
 }
