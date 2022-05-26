@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         MyRetorfit.myForecast.observe(this, {f ->
             LogKitty("Change detected")
+            LogKitty("test")
             if (MyRetorfit.myForecast.value != null) {
                 val intent = Intent(this, ForecastsListActivity::class.java).apply {
                     val bundle = Bundle()
